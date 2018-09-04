@@ -1,0 +1,33 @@
+{
+  "name": "bornhack-saxo-fun",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "console-scatter-plot": "^1.0.1",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5",
+    "typescript": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/node": "^8.10.29",
+    "@types/request": "^2.47.1",
+    "@types/request-promise-native": "^1.0.15"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johncoffee/bornhack-saxo-fun.git"
+  },
+  "author": "",
+  "license": "Public domain",
+  "bugs": {
+    "url": "https://github.com/johncoffee/bornhack-saxo-fun/issues"
+  },
+  "homepage": "https://github.com/johncoffee/bornhack-saxo-fun#readme"
+}
