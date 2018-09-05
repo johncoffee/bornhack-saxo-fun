@@ -32,17 +32,17 @@ interface BuyEur {
 }
 
 function main () {
-  console.debug("Hello creator! What is my purpose?")
+  console.debug(cyan("Hello creator! What is my purpose?"))
   console.debug(cyan("me: Make more money, bot!"))
-  console.log("But why, creator? You can just print some more?")
+  console.debug(cyan("But why, creator? You can just print some more?"))
   console.debug(cyan("me: No, bot, you see, I need other peoples money."))
 
   const verbose:boolean = false
 
   // produce list of movements
-  const priceChanges: Change[] = new Array(70)
+  const priceChanges: Change[] = new Array(45) // resolution
     .fill(1)
-    .map((value, index, arr) => index / arr.length * 24)
+    .map((value, index, arr) => index / arr.length * Math.PI * 6) // adjust cosine waves
     .map(price => (Math.cos(price) + 1)/2) // 0..1
     // .map(price => Math.max(0.2, Math.min(0.8, price)) )
     .map((price, idx, arr) => (<Change>{
@@ -50,10 +50,6 @@ function main () {
       ask: Math.floor(price*220 + Math.random()*20),
       time: idx+1,
     }))
-
-  // visualize([
-  //   ...priceChanges.map((price, idx) => ({x: idx, y: round((price.ask+price.bid)/2) }) ), // mid
-  // ])
 
   const _stash = <Stash>{
     eur: 0,
@@ -63,6 +59,7 @@ function main () {
     position: undefined,
     maxPos: 1,
   }
+  const origStash:Stash = Object.freeze({..._stash})
 
   const orig = [...priceChanges]
 
@@ -72,9 +69,14 @@ function main () {
 
   const run = async () => {
     console.debug("Starting with "+_stash.try + " try, " + _stash.eur + " eur")
-    console.debug("I'm buying at " + _stash.eurtryBuyAt + "  try, selling at " + _stash.eurtrySellAt)
+    console.debug("I'm buying eur at " + _stash.eurtryBuyAt + " tryeur, selling at " + _stash.eurtrySellAt + " tryeur")
     console.debug("Only have 1 position at a time.")
     console.debug("===")
+    console.debug("Using this scenario")
+    // Will use this scenario:
+    visualize([
+      ...priceChanges.map((price, idx) => ({x: idx, y: round((price.ask+price.bid)/2) }) ), // mid
+    ])
     console.debug("Running scenario....")
 
     const buyEvents:[number,number][] = []
@@ -113,9 +115,11 @@ function main () {
       ...sellEvents.map(([time, price]) => ({x: time, y: price, marker: `X`, color: 'green'})),
     ])
 
-    console.debug("Stash at the end: ",_stash)
+    console.debug("Earned total "+ (_stash.try - origStash.try) + " try")
+    console.debug(`stash: ${_stash.eur} eur, ${_stash.try} try`)
 
-    console.debug("Done.")
+    console.debug(cyan("Did I do good, creator?"))
+    console.debug(cyan("'Good' is social construct, bot, you did well and right."))
   }
 
   run()
@@ -149,7 +153,7 @@ async function checkPositions(change:Change, st:Stash, buyEur:BuyEur) {
     st.try = st.try + price
     st.position = undefined
     console.debug(`sold position ${round(volume)} eur at ${change.bid} eurtry, earning ${round(price)}`)
-    Math.random() < 0.15 && console.debug("om nom nom...")
+    Math.random() < 0.15 && console.debug(cyan("om nom nom..."))
     sold = [change.time, change.bid]
   }
 
