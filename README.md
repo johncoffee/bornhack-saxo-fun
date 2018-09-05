@@ -8,8 +8,8 @@ then `tsc` to compile typescript
 
 ### Running
 
-node examples/static-example.js
+`node examples/static-example.js`
 
 ### development
 
-`nodemon examples/static-example.js --delay=300ms -E js`
+`nodemon examples/static-example.js --delay=300ms -e=js`
